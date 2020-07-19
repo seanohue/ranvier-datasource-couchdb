@@ -35,7 +35,7 @@ module.exports = class CouchDbDataSource {
     // (accounts, players, and help)
     // RETURNS AN OBJ
     } else {
-      return await db.allDocs({
+      return db.allDocs({
         include_docs: true,
         startkey: config.area,
         endkey: config.area
