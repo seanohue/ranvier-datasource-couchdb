@@ -1,0 +1,15 @@
+{
+  "name": "ranvier-datasource-couchdb",
+  "version": "1.0.0",
+  "description": "CouchDB DataSource for Ranvier",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/azigler/ranvier-datasource-couchdb.git"
+  },
+  "main": "CouchDBDataSource.js",
+  "author": "Andrew Zigler <andrewzigler@gmail.com> (https://www.andrewzigler.com)",
+  "license": "MIT",
+  "dependencies": {
+    "pouchdb": "^7.2.1"
+  }
+}
