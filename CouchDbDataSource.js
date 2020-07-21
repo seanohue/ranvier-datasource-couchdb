@@ -65,10 +65,14 @@ module.exports = class CouchDbDataSource {
     const db = new PouchDB(`http://${DB_UN}:${DB_PW}@localhost:5984/${config.namespace}${config.db}`)
     return this.fetch(config, id)
       .then(data => {
-        return db.put({
-          ...data,
-          ...payload
-        })
+        if (data.status === 404) {
+          return db.put(payload)
+        } else {
+          return db.put({
+            ...data,
+            ...payload
+          })
+        }
       })
       .catch(er => { return er })
   }

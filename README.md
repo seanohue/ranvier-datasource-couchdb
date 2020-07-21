@@ -37,7 +37,7 @@ To use the `DataSource` as an `EntityLoader`, you'll need to set it with a `conf
 
 This would attempt to utilize the `dev_account` database in your CouchDB instance.
 
-4. Update `entityLoaders` in your `ranvier.json` to use your new `DataSource`. Here's an example configuration using `ranvier-datasource-couchdb` for all data:
+4. Update `entityLoaders` in your `ranvier.json` to use your new `DataSource`. `QuestGoals` and `QuestRewards` are currently hard-coded to load from files currently, so this `DataSource` is untested for quests. Here's an example configuration using `ranvier-datasource-couchdb` for all data:
 ```
 "entityLoaders": {
     "accounts": {
@@ -83,10 +83,9 @@ This would attempt to utilize the `dev_account` database in your CouchDB instanc
       }
     },
     "quests": {
-      "source": "CouchDb",
+      "source": "Yaml",
       "config": {
-        "namespace": "dev_",
-        "db": "quest"
+        "path": "bundles/[BUNDLE]/areas/[AREA]/quests.yml"
       }
     },
     "help": {
