@@ -15,7 +15,7 @@ module.exports = class CouchDbDataSource {
   }
 
   fetchAll (config = {}) {
-    const db = new PouchDB(`http://${DB_UN}:${DB_PW}@localhost:5984/${config.namespace || ''}${config.db}`)
+    const db = new PouchDB(`http://${DB_UN}:${DB_PW}@localhost:5984/${config.namespace}${config.db}`)
 
     // if loading a document belonging to an area
     // (npcs, items, rooms, and quests)
@@ -73,6 +73,15 @@ module.exports = class CouchDbDataSource {
             ...payload
           })
         }
+      })
+      .catch(er => { return er })
+  }
+
+  delete (config = {}, id) {
+    const db = new PouchDB(`http://${DB_UN}:${DB_PW}@localhost:5984/${config.namespace}${config.db}`)
+    return this.fetch(config, id)
+      .then(data => {
+        return db.remove(data)
       })
       .catch(er => { return er })
   }
