@@ -37,7 +37,7 @@ To use the `DataSource` as an `EntityLoader`, you'll need to set it with a `conf
 
 This would attempt to utilize the `dev_account` database in your CouchDB instance.
 
-4. Update `entityLoaders` in your `ranvier.json` to use your new `DataSource`. `QuestGoals` and `QuestRewards` are hard-coded to load from files currently in `BundleManager`, so this `DataSource` is untested for quests. Here's an example configuration using `ranvier-datasource-couchdb` for all data:
+4. Update `entityLoaders` in your `ranvier.json` to use your new `DataSource`. `QuestGoal` and `QuestReward` are hard-coded to load from files currently in `BundleManager`, so this `DataSource` is untested for quests. Here's an example configuration using `ranvier-datasource-couchdb` for all data except quests:
 ```
 "entityLoaders": {
     "accounts": {
@@ -101,7 +101,7 @@ This would attempt to utilize the `dev_account` database in your CouchDB instanc
 
 ### Usage
 
-In the `item`, `room`, and `npc` databases, the document's `_id` is the area to which the entities belong. Within each document, it needs a property for the type of entity (`npc`, `room`, or `item`). The value of this property is an array of entity definitions of that type. For example, here is a document holding the `Items` for an `Area` called `debug`, pulling from the `dev_item` database:
+In the `item`, `room`, and `npc` databases, the document's `_id` is the area to which the entities belong. Within each document, it needs a property for the type of entity (`npc`, `room`, or `item`). The value of this property is an array of entity definitions of that type. For example, here is a document holding all `Item` definitions for an `Area` called `debug`, pulling from the `dev_item` database:
 
 ```
 {
@@ -130,8 +130,8 @@ In the `item`, `room`, and `npc` databases, the document's `_id` is the area to 
   ]
 }
 ```
-`Helpfiles` each have their own document in the `help` database, with each document's `_id` representing the name of the helpfile. Similarly, `Accounts`, `Players`, and `Areas` are all represented as individual documents with `_id` properties representing the name of the `Account`, `Player`, or `Area`, respectively.
+`Helpfiles` each have their own document in the `help` database, with each document's `_id` representing the `name` of the `Helpfile`. Similarly, `Accounts`, `Players`, and `Areas` are all represented as individual documents with `_id` properties representing the `id` of the `Account`, `Player`, or `Area`, respectively.
 
 ### Extending
 
-You can use this `DataSource` to build a web-based editor for the document data. Otherwise, you can edit the values in the browser using Fauxton. If the database is running on your local machine, you can navigate to [http://127.0.0.1:5984/_utils](http://127.0.0.1:5984/_utils) and access your data after entering your admin credentials. You can also manipulate all of this data with [PouchDB](https://pouchdb.com/) in Node or in the browser, so this is a great starting point for using in-game data externally. Regardless, separating data from source keeps your data more readily available and your source more organized.
+You can use this `DataSource` to build a web-based editor for the document data. If you want to use a pre-existing editor, this bundle :wine_glass: pairs beautifully :cheese: with [ranvier-zpanel](https://github.com/azigler/ranvier-zpanel). Otherwise, you can edit the values in the browser using Fauxton. If the database is running on your local machine, you can navigate to [http://127.0.0.1:5984/_utils](http://127.0.0.1:5984/_utils) and access your data after entering your admin credentials. You can also manipulate all of this data with [PouchDB](https://pouchdb.com/) in Node or in the browser, so this is a great starting point for using in-game data externally and adding new types of data.
