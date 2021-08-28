@@ -68,6 +68,12 @@ module.exports = class CouchDbDataSource {
         if (data.status === 404) {
           return db.put(payload)
         } else {
+          for (const prop in payload) {
+            if (payload[prop][0] === '__DELETED') {
+              delete data[prop]
+              delete payload[prop]
+            }
+          }
           return db.put({
             ...data,
             ...payload
