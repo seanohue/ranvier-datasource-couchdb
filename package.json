@@ -6,7 +6,7 @@
     "type": "git",
     "url": "git://github.com/azigler/ranvier-datasource-couchdb.git"
   },
-  "main": "CouchDBDataSource.js",
+  "main": "CouchDbDataSource.js",
   "author": "Andrew Zigler <andrewzigler@gmail.com> (https://www.andrewzigler.com)",
   "license": "MIT",
   "dependencies": {
