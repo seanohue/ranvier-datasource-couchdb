@@ -7,6 +7,10 @@ const DB_PW = process.env.DB_PW
  * DataSource using CouchDB
  */
 module.exports = class CouchDbDataSource {
+  logError (config, message) {
+    console.error(`[CouchDbDataSource][${config.namespace}][${config.db}] ERROR: `, message);
+  }
+
   hasData (config = {}) {
     const db = new PouchDB(`http://${DB_UN}:${DB_PW}@localhost:5984/${config.namespace}${config.db}`)
     let result = false
@@ -29,7 +33,10 @@ module.exports = class CouchDbDataSource {
         .then(data => {
           return data.rows.map(doc => doc.doc[config.db])[0]
         })
-        .catch(er => { return er })
+        .catch(er => { 
+          this.logError(config, er);
+          return er 
+        })
 
     // if loading a non-area document
     // (accounts, players, and help)
@@ -49,7 +56,10 @@ module.exports = class CouchDbDataSource {
           })
           return obj
         })
-        .catch(er => { return er })
+        .catch(er => { 
+          this.logError(config, er);
+          return er 
+        })
     }
   }
 
@@ -58,7 +68,10 @@ module.exports = class CouchDbDataSource {
     return db
       .get(id)
       .then(data => { return data })
-      .catch(er => { return er })
+      .catch(er => { 
+        this.logError(config, er);
+        return er 
+      })
   }
 
   update (config = {}, id, payload) {
@@ -80,7 +93,10 @@ module.exports = class CouchDbDataSource {
           })
         }
       })
-      .catch(er => { return er })
+      .catch(er => {
+        this.logError(config, er);
+        return er
+      })
   }
 
   delete (config = {}, id) {
@@ -89,6 +105,9 @@ module.exports = class CouchDbDataSource {
       .then(data => {
         return db.remove(data)
       })
-      .catch(er => { return er })
+      .catch(er => {
+        this.logError(config, er); 
+        return er 
+      })
   }
 }
