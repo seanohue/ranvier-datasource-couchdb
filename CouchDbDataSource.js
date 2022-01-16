@@ -83,7 +83,7 @@ module.exports = class CouchDbDataSource {
           return db.put(payload)
         } else {
           for (const prop in payload) {
-            if (payload[prop][0] === '__DELETED') {
+            if (payload[prop] === '__DELETED') {
               delete data[prop]
               delete payload[prop]
               console.warn(`[CouchDbDataSource][update][${id}]${prop} deleted.`);
