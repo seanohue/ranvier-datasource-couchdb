@@ -93,6 +93,9 @@ module.exports = class CouchDbDataSource {
           return db.put({
             ...data,
             ...payload
+          }).then((res) => {
+            console.log(`[CouchDbDataSource][update][${id}] Updated: `, res);
+            return res;
           })
         }
       })
