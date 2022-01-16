@@ -79,14 +79,17 @@ module.exports = class CouchDbDataSource {
     return this.fetch(config, id)
       .then(data => {
         if (data.status === 404) {
+          console.warn(`[CouchDbDataSource][update][${id}] Not found.`);
           return db.put(payload)
         } else {
           for (const prop in payload) {
             if (payload[prop][0] === '__DELETED') {
               delete data[prop]
               delete payload[prop]
+              console.warn(`[CouchDbDataSource][update][${id}]${prop} deleted.`);
             }
           }
+          console.log(`[CouchDbDataSource][update][${id}] Updating...`)
           return db.put({
             ...data,
             ...payload
